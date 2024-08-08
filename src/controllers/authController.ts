@@ -3,8 +3,8 @@ import { container } from "tsyringe";
 import { CartService, UserService } from "../services";
 import jwt from 'jsonwebtoken';
 
-class AuthController {
-  static async registerNewUser(
+export class AuthController {
+  static async register(
     req: Request,
     res: Response
   ): Promise<Response | undefined> {

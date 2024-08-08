@@ -10,10 +10,10 @@ const app = express();
 app.use(express.json());
 app.use("/api", router);
 
-const launchServer = async () => {
+const startServer = async () => {
 	try {
 		await sequelize.authenticate();
-		await sequelize.sync();
+		await sequelize.sync({force: true});
 		
 		app.listen(PORT, () => {
 			console.log("Server running on port " + PORT);
@@ -23,4 +23,4 @@ const launchServer = async () => {
 	}
 }
 
-launchServer();
+startServer();
