@@ -6,7 +6,7 @@ import { UserModel, PermissionModel } from ".";
 	timestamps: false,
 })
 
-export class RolModel extends Model {
+export class RolModel extends Model<RolModel> {
 	@PrimaryKey
 	@AutoIncrement
 	@Column(DataType.INTEGER)
@@ -24,5 +24,5 @@ export class RolModel extends Model {
 	users!: UserModel[];
 
 	@HasMany(() => PermissionModel)
-	permission!: PermissionModel;
+	permissions!: PermissionModel[];
 }

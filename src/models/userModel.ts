@@ -6,7 +6,7 @@ import { CartModel, OrderModel, RolModel } from "./";
     timestamps: true,
 })
 
-export class UserModel extends Model {
+export class UserModel extends Model<UserModel> {
     @PrimaryKey
     @AutoIncrement
     @Column(DataType.INTEGER)

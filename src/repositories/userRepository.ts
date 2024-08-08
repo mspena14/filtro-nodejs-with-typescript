@@ -4,15 +4,15 @@ import { UserModel } from "../models";
 @injectable()
 export  class UserRepository{
     async create(user: Partial<UserModel>){
-        return await UserModel.create(user)
+        return await UserModel.create(user as UserModel);
+    }
+    
+    async deleteUser(id: number){
+        return await UserModel.destroy({where: {id: id}})
     }
 
     async updateUser(id: number, newUser: Partial<UserModel>){
         return await UserModel.update(newUser, { where: {id}})
-    }
-
-    async deleteUser(id: number){
-        return await UserModel.destroy({where: {id: id}})
     }
 
     async findAll(): Promise<UserModel[]>{

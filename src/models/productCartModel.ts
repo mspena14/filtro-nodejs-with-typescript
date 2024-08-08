@@ -1,12 +1,12 @@
-import { Table, Column, Model, DataType, ForeignKey, BelongsTo, PrimaryKey, AutoIncrement } from "sequelize-typescript";
-import { ProductModel, CartModel } from "./";
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo, PrimaryKey, AutoIncrement, HasMany } from "sequelize-typescript";
+import { ProductModel, CartModel, OrderModel } from "./";
 
 @Table({
     tableName: 'productsCarts',
     timestamps: true,
 })
 
-export class ProductCartModel extends Model {
+export class ProductCartModel extends Model<ProductCartModel>{
     @PrimaryKey
     @AutoIncrement
     @Column(DataType.INTEGER)
@@ -43,4 +43,7 @@ export class ProductCartModel extends Model {
         }
     )
     quantity!: number;
+
+    @HasMany(() => OrderModel)
+	users!: OrderModel[];
 }

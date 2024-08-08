@@ -1,13 +1,20 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, BelongsToMany } from "sequelize-typescript";
+import { 
+    Table, 
+    Column, 
+    Model, 
+    DataType, 
+    PrimaryKey, 
+    AutoIncrement, 
+    BelongsToMany 
+} from "sequelize-typescript";
 import { ProductCartModel, CartModel } from "./";
-
 
 @Table({
     tableName: 'products',
     timestamps: true,
 })
 
-export class ProductModel extends Model {
+export class ProductModel extends Model<ProductModel> {
     @PrimaryKey
     @AutoIncrement
     @Column(DataType.INTEGER)

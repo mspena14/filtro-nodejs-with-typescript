@@ -1,26 +1,30 @@
 import { injectable } from "tsyringe";
-import { OrderModel } from "../models";
-import { CreationAttributes } from "sequelize";
+import { OrderModel, ProductModel } from "../models";
+
 
 @injectable()
-export class OrderService {
-    async createOrder(data: CreationAttributes<OrderModel>): Promise<OrderModel> {
-        return OrderModel.create(data);
+export class OrderRepository {
+    async create(order: Partial<OrderModel>): Promise<OrderModel> {
+        return await OrderModel.create(order as OrderModel);
     }
     
-    async getAllOrders(): Promise<OrderModel[]> {
-        return OrderModel.findAll();
+    async findAll(): Promise<OrderModel[]> {
+        return await OrderModel.findAll();
     }
     
-    async getOrderByUser(userId: number): Promise<OrderModel[]> {
-        return OrderModel.findAll({ where: { userId } });
+    async findOrderByIdUser(userId: number): Promise<OrderModel[]> {
+        return await OrderModel.findAll({ where: { userId } });
     }
     
-    async deleteOrder(id: number): Promise<void> {
-        await OrderModel.destroy({ where: { id } });
+    async deleteOrder(id: number){
+        return await OrderModel.destroy({ where: { id } });
     }
     
-    async updateOrder(id: number, data: Partial<OrderModel>): Promise<OrderModel> {
-        return OrderModel.update(data, { where: { id } });
+    async updateOrder(id: number, newOrder: Partial<OrderModel>): Promise<number[]> {
+        return OrderModel.update(newOrder, { where: { id } });
+    }
+
+    async findProductsByIdOrder(id: number){
+        return await OrderModel.findByPk(id, {include: [ProductModel]})
     }
 }

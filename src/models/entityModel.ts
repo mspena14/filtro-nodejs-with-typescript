@@ -7,7 +7,7 @@ import { PermissionModel } from "./";
     timestamps: false
 })
 
-export class EntityModel extends Model {
+export class EntityModel extends Model<EntityModel> {
     @PrimaryKey
     @AutoIncrement
     @Column(DataType.INTEGER)

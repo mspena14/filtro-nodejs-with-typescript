@@ -1,14 +1,13 @@
 import { UserRepository, CartRepository } from '../repositories';
 import { injectable, inject } from 'tsyringe';
-import { CartModel, UserModel } from '../models';
-import { container } from 'tsyringe';
+import {  UserModel } from '../models';
+
 
 @injectable()
-export default class UserService{
+export  class UserService{
     constructor(@inject('UserRepository') private userReposiroty: UserRepository){}
 
-    async createUser(cart: Partial<CartModel>, user: Partial<UserModel>): Promise<UserModel>{
-        const cartRepository = container.resolve(CartRepository)
+    async createUser( user: Partial<UserModel>): Promise<UserModel>{
         return await this.userReposiroty.create(user)
     }
 

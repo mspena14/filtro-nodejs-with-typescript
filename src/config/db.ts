@@ -1,21 +1,18 @@
 import { Sequelize } from "sequelize-typescript";
 import { config } from "dotenv";
-import { Products, Users, Carts, Orders, Permissions, ProductsCarts, Roles, Entities } from '../models'
+import { ProductModel, UserModel, CartModel, OrderModel, PermissionModel, ProductCartModel, RolModel, EntityModel } from '../models'
 
 config();
-const { DB_NAME, DB_USER, DB_HOST} = process.env;
+const { DB_NAME, DB_USER, DB_HOST, DB_PASSWORD} = process.env;
 
 const sequelize: Sequelize = new Sequelize({
     dialect: 'mysql',
     host: DB_HOST,
     username: DB_USER,
-    // password: 'Rlwl2023.',
+    password: DB_PASSWORD,
     database: DB_NAME,
     port:3306,
-    models: [Products, Users, Carts, Orders, Permissions, ProductsCarts, Roles, Entities],
-    define: {
-        underscored: true
-    }
+    models: [ProductModel, UserModel, CartModel, OrderModel, PermissionModel, ProductCartModel, RolModel, EntityModel],
 });
 
 export default sequelize;

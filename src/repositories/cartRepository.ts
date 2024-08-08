@@ -1,17 +1,17 @@
 import { injectable } from "tsyringe";
 import { CartModel } from "../models";
-import { CreationAttributes} from 'sequelize';
-
 
 @injectable()
 export class CartRepository {
-    async createCart(cartData: CreationAttributes<CartModel>): Promise<CartModel> {
-        return CartModel.create(cartData);
+    async create(cartData: Partial<CartModel>): Promise<CartModel> {
+        return CartModel.create(cartData as CartModel);
     }
-    async deleteCart(id: number): Promise<void> {
-        await CartModel.destroy({ where: { id } });
-    }
-    async getAllCarts(): Promise<CartModel[]> {
-        return CartModel.findAll();
-    }
+
+	async findById(id:number): Promise<CartModel | void>{
+		const cart = await CartModel.findByPk(id);
+		if (!cart) {
+            throw new Error('Cart not found');
+        }
+		else return cart;
+	}
 }

@@ -1,12 +1,13 @@
 import { injectable } from "tsyringe";
 import { ProductCartModel, ProductModel } from "../models";
-import { CreationAttributes} from 'sequelize';
+
 
 @injectable()
-export class ProductCartService {
-    async createProductCart(data: CreationAttributes<ProductCartModel>): Promise<ProductCartModel> {
-        return ProductCartModel.create(data);
+export class ProductCartRepository {
+    async create(productCart: any): Promise<ProductCartModel> {
+        return ProductCartModel.create(productCart);
     }
+
     async deleteProductCartProducts(productId: number, cartId: number): Promise<void> {
         await ProductCartModel.destroy({
             where: {
@@ -15,10 +16,11 @@ export class ProductCartService {
             }
         });
     }
-    async updateProductCartProductsQty(productId: number, cartId: number, qty: number): Promise<ProductCartModel> {
+
+    async updateProductCartProductsQty(productId: number, cartId: number, qty: number) {
         return ProductCartModel.update(
             {
-                qty
+                quantity: qty,
             },
             {
                 where: {
@@ -28,7 +30,8 @@ export class ProductCartService {
             }
         );
     }
-    async getProductsByCartId(cartId: number): Promise<ProductCartModel[]> {
+
+    async findProductsByCartId(cartId: number): Promise<ProductCartModel[]> {
         return ProductCartModel.findAll({
             where: {
                 cartId
@@ -36,7 +39,8 @@ export class ProductCartService {
             include: [{model: ProductModel}]
         });
     }
-    async getTotalPriceByCartId(cartId: number): Promise<number> {
+
+    async findTotalPriceByCartId(cartId: number): Promise<number> {
         const products = await ProductCartModel.findAll({
             where: {
                 cartId
